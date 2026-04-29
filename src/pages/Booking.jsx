@@ -124,21 +124,24 @@ export default function Booking() {
       totalPrice,
     };
 
- try {
-      await axios.post(
-        "http://localhost:5000/api/bookings",
-        newBooking
-      );
+const handleBooking = async (e) => {
+  e.preventDefault();
 
-      alert("Booking Successful!");
-      navigate("/confirmation", { state: newBooking });
+  try {
+    await axios.post(
+      "http://localhost:5000/api/bookings",
+      newBooking
+    );
 
-    } catch (err) {
-      console.error(err);
-      alert("Error saving booking");
-    }
-  };
+    alert("Booking Successful!");
+    navigate("/confirmation", { state: newBooking });
 
+  } catch (err) {
+    console.error(err);
+    alert("Error saving booking");
+  }
+}
+};
   return (
     <section className="booking-form">
       <h2>Booking Now</h2>
