@@ -1,0 +1,1109 @@
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* ================= GLOBAL ================= */
+body {
+  background-color: #f5f5f5;
+}
+
+/* ================= LOGIN PAGE ================= */
+
+/* Background only for login */
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e") no-repeat center center/cover;
+  position: relative;
+}
+
+/* Overlay */
+.login-container::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* Login form */
+.login-form {
+  width: 350px;
+  padding: 30px;
+  background: url('C:\Users\Shalini M\OneDrive\Desktop\INTERNSHIP\Travel\bookandgo_frontend\public\download (1).jpg');
+  background-size: cover;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+/* BRAND (image + text) */
+.login-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  font-size: 22px;
+  font-weight: bold;
+  color: #0d6efd;
+
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+/* Logo image */
+.login-brand img {
+  width: 50px;
+  height: auto;
+}
+
+/* Text styling */
+.login-brand span {
+  letter-spacing: 1px;
+}
+
+/* Hover effect */
+.login-brand:hover {
+  transform: scale(1.05);
+  transition: 0.3s;
+}
+
+/* Subtitle */
+.subtitle {
+  margin-bottom: 15px;
+  color: rgb(14, 5, 5);
+  font-size: 14px;
+}
+
+.extra {
+  color: #f7f2f2;        /* black text */
+  font-weight: bold;  /* bold */
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+/* Signup link */
+.extra span {
+  color: #47e65e;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Login Inputs */
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Login Button */
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(45deg, #0d6efd, #00c6ff);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-form button:hover {
+  transform: scale(1.05);
+}
+
+/*toggle button*/
+/* Light mode (default) */
+body {
+  background: #f5f7fa;
+  color: #222;
+}
+
+/* Dark mode */
+body.dark {
+  background: #121212;
+  color: white;
+}
+
+/* Navbar */
+body.dark nav {
+  background: #1e1e1e;
+}
+
+/* Cards */
+body.dark .trip-plan,
+body.dark .wishlist-item,
+body.dark .chat-box {
+  background: #1e1e1e;
+  color: white;
+}
+
+/* Buttons */
+body.dark button {
+  background: #333;
+  color: white;
+}
+
+/* ================= APP BACKGROUND (EXCEPT LOGIN) ================= */
+.app-bg {
+  min-height: 100vh;
+  position: relative;
+
+  background-image: url('https://wallpapers.com/images/hd/wallpaper-travel-wallpaper-hd-background-4elbztfs0iniay46.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* WHITE TRANSPARENT LAYER */
+.app-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(255, 255, 255, 0.7); /* control transparency */
+
+  z-index: 0;
+}
+
+/* ALL CONTENT ABOVE OVERLAY */
+.app-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  background: url('C:\Users\Shalini M\OneDrive\Desktop\INTERNSHIP\Travel\bookandgo_frontend\public\navbarbg.jpg');
+  color: white;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 15px 40px;
+
+  /* IMPORTANT: center navbar like screenshot */
+  max-width: 1200px;
+  margin: 20px auto;
+  border-radius: 6px;
+}
+
+/* LOGO */
+.logo {
+  height: 50px;
+  width: auto;
+  cursor: pointer;
+}
+
+/* NAV LINKS */
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 30px; /* more spacing like screenshot */
+  align-items: center;
+}
+
+/* LINKS */
+.navbar a {
+  text-decoration: none;
+  color: rgba(12, 4, 11, 0.97);
+  font-weight: 500;
+  position: relative;
+  padding: 5px 0;
+}
+
+/* HOVER UNDERLINE ANIMATION */
+.navbar a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: #fd9917;
+  transition: 0.3s;
+}
+
+/* HOVER EFFECT */
+.navbar a:hover::after {
+  width: 100%;
+}
+
+/* ACTIVE LINK (optional) */
+.navbar a.active {
+  color: #ffd700;
+}
+
+/* ================= HOME PAGE ================= */
+
+/* Section */
+section {
+  padding: 40px;
+  text-align: center;
+}
+
+/* Heading */
+h2 {
+  margin-bottom: 20px;
+}
+
+/* City selector */
+.state-selector {
+  margin: 20px auto;
+}
+
+.state-selector select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* ================= SLIDER ================= */
+.slider {
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto;
+  position: relative;
+}
+
+.slider img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.carousel img {
+  height: 220px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.carousel img:hover {
+  transform: scale(1.05);
+}
+
+/*about us */
+.about-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 30px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.logo {
+  font-size: 28px;
+  color: #1d4ed8;
+  font-weight: bold;
+}
+
+.heading {
+  margin-top: 10px;
+}
+
+.description {
+  margin: 20px 0;
+  line-height: 1.6;
+  color: #160404;
+}
+
+.mission-box {
+  background: #eef2ff;
+  border-left: 5px solid #2563eb;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: left;
+  margin-top: 20px;
+}
+
+.features-title {
+  margin-top: 30px;
+}
+
+.features {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  background: #67748b;
+  padding: 20px;
+  border-radius: 12px;
+  width: 250px;
+  transition: 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.footer {
+  margin-top: 30px;
+  font-weight: bold;
+}
+
+/* ================= TRIP CARDS ================= */
+/* Full Page Background */
+.trip-details {
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Main Title */
+.trip-details h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: left;
+  color: #000;
+}
+
+/* Radio Options */
+.trip-options {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 25px;
+  font-size: 18px;
+}
+
+.trip-options label {
+  cursor: pointer;
+}
+
+/* "It follows" text */
+.itinerary h4 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* Each Trip Card */
+.trip-plan {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #7aa2b9, #cfd9df);
+  color: rgb(20, 10, 10);
+  background-size: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Heading inside card */
+.trip-plan h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #222;
+}
+
+.trip-plan ul {
+  list-style: none;     /* Removes bullets */
+  padding-left: 0;       /* Aligns items with left margin */
+  text-align: left;
+}
+
+/* Sub content */
+.sub-plan ul {
+  padding-left: 20px;
+}
+
+.sub-plan ul li {
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Price Styling */
+.price {
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 18px;
+  color: #04910b;
+}
+
+/* Button */
+.trip-plan button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  background: #4a90e2;
+  color: white;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.trip-plan button:hover {
+  background: #2c6fc1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .trip-options {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .itinerary {
+    padding: 15px;
+  }
+
+  .trip-plan h2 {
+    font-size: 20px;
+  }
+}
+/* ================= FORMS ================= */
+/* ===== COMMON WRAPPER ===== */
+.booking-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 85vh;
+  padding: 20px;
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  width: 320px;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.empty-box h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #222;
+}
+
+.empty-box button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.empty-box button:hover {
+  transform: scale(1.05);
+}
+
+/* ===== BOOKING FORM ===== */
+/* ===== COMMON WRAPPER ===== */
+.booking-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 85vh;
+  padding: 20px;
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  width: 320px;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.empty-box h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #222;
+}
+
+.empty-box button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.empty-box button:hover {
+  transform: scale(1.05);
+}
+
+/* ===== MAIN CONTAINER ===== */
+.booking-form {
+  display: flex;
+  flex-direction: column;   /* 🔥 vertical layout */
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  text-align: center;
+  padding: 20px;
+}
+
+/* ===== TITLE ===== */
+.booking-title {
+  font-size: 32px;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+/* ===== DESTINATION ===== */
+.booking-destination {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+/* Card (MAIN FIX 🔥) */
+.booking-form {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-heading {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.booking-card {
+  width: 420px;
+  padding: 25px;
+  border-radius: 15px;
+
+  background: url('C:\Users\Shalini M\OneDrive\Desktop\INTERNSHIP\Travel\bookandgo_frontend\public\bookingformbg.jpg')
+    no-repeat center/cover;
+
+  color: white;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.destination {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.booking-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.radio-group {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+
+.people-row {
+  display: flex;
+  gap: 10px;
+}
+
+.traveller-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.price {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.booking-card button {
+  width: 100%;
+  padding: 12px;
+  background: #ff7a18;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Button */
+.booking-card button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(45deg, #ff7a18, #ffb347);
+  color: white;
+  font-size: 16px;
+}
+
+/* ================= BUTTON ================= */
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+ background: linear-gradient(45deg, #ff7a18, #ffb347);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+   transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3)
+}
+
+/* ================= FORMS ================= */
+form {
+  max-width: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input,
+textarea,
+select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* ================= CONFIRMATION ================= */
+/* Page layout */
+.confirmation {
+  padding: 40px;
+  text-align: center;
+}
+
+/* Heading */
+.confirmation h2 {
+  margin-bottom: 20px;
+  color: #2e7d32;
+}
+
+.confirm-card {
+  display: inline-block;
+  padding: 20px 30px;
+  margin-top: 20px;
+
+  background-color: white;   /* visible container */
+  border: 2px solid black;   /* clear box */
+
+  text-align: left;
+}
+
+/* Buttons */
+.confirmation button {
+  margin-top: 15px;
+  padding: 8px 14px;
+  border: 1px solid #333;
+  background: linear-gradient(45deg, #ff7a18, #ffb347);
+  cursor: pointer;
+}
+
+/* Button hover */
+.confirmation button:hover {
+  background: #fff1b5;
+}
+
+/* ================= BOOKINGS ================= */
+.booking-list {
+  max-width: 600px;
+  margin: auto;
+  text-align: left;
+}
+
+.booking-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+/*contact page*/
+.tagline {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #511515;
+}
+
+.contact-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  width: 320px;
+  margin: 0 auto 25px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Emotional text */
+.emotional-text p {
+  font-style: italic;
+  margin: 5px 0;
+  color: #511515;
+}
+
+/* Features */
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 25px 0;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background: linear-gradient(to right, #7fa6d8, #a0d7b0);
+  padding: 15px;
+  width: 200px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Social */
+/* Container */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+/* Icon Style */
+.icon {
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Hover Effect (Glow + Lift) */
+.icon:hover {
+  transform: translateY(-5px) scale(1.1);
+}
+
+/* Individual Colors */
+.social-links a:nth-child(1) .icon:hover {
+  background: #1877f2; /* Facebook */
+  box-shadow: 0 0 15px #1877f2;
+}
+
+/* Optional: Make icon white on hover */
+.social-links a:hover .icon {
+  filter: brightness(0) invert(1);
+}
+/*mywishlist*/
+/* Center entire wishlist content */
+.wishlist-container {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* vertical center */
+  align-items: center;       /* horizontal center */
+  text-align: center;
+}
+
+/* Title */
+.wishlist-container h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+/* Empty text */
+.wishlist-container p {
+  font-size: 18px;
+  color: #666;
+}
+
+/* Wishlist Card */
+.wishlist-item {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 25px 30px;
+  border-radius: 15px;
+  width: 320px;
+  margin-top: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.wishlist-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+/* Destination */
+.wishlist-item strong {
+  font-size: 22px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Price */
+.wishlist-item p {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #f1f1f1;
+}
+
+/* Remove button */
+.wishlist-item button {
+  background: white;
+  color: #764ba2;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* Button hover */
+.wishlist-item button:hover {
+  background: #ff4d4d;
+  color: white;
+}
+
+/*feedback*/
+
+.feedback-container {
+  text-align: center;
+  padding: 30px;
+}
+
+.feedback-container input,
+.feedback-container textarea {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 250px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.feedback-container button {
+  padding: 10px 20px;
+  border: none;
+  background: linear-gradient(45deg, #ff7a18, #ffb347);
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.success-msg {
+  color: green;
+  margin-top: 10px;
+}
+
+.feedback-list {
+  margin-top: 30px;
+}
+
+.feedback-item {
+  background: linear-gradient(to right, #7fa6d8, #a0d7b0);
+  padding: 15px;
+  margin: 10px auto;
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.feedback-item button {
+  margin-top: 5px;
+  padding: 5px 10px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.feedback-item button:hover {
+  background: #1e40af;
+}
+
+/*helpchat css */
+.chat-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999; 
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.chat-box {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 280px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.chat-header {
+  background: #4facfe;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.chat-body {
+  height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.bot {
+  text-align: left;
+  color: #333;
+  margin: 5px 0;
+}
+
+.user {
+  text-align: right;
+  color: #007bff;
+  margin: 5px 0;
+}
+
+.chat-input {
+  display: flex;
+}
+
+.chat-input input {
+  flex: 1;
+  border: none;
+  padding: 8px;
+}
+
+.chat-input button {
+  background: #4facfe;
+  color: white;
+  border: none;
+  padding: 8px;
+}
+
+/*admin css*/
+.admin-dashboard {
+  padding: 30px;
+  color: rgb(14, 1, 1);
+  min-height: 100vh;
+  text-align: center;
+}
+
+/* Title */
+.admin-dashboard h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+/* Cards */
+.admin-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 20px;
+  border-radius: 12px;
+  width: 150px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card h3 {
+  font-size: 26px;
+  margin: 0;
+}
+
+/* Sections */
+.admin-section {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.admin-section h3 {
+  margin-bottom: 10px;
+  border-bottom: 2px solid #555;
+  padding-bottom: 5px;
+}
+
+/* Items */
+.admin-item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  backdrop-filter: blur(6px);
+  transition: 0.3s;
+}
+
+.admin-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
