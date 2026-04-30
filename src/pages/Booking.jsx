@@ -128,10 +128,7 @@ const handleBooking = async (e) => {
   e.preventDefault();
 
   try {
-    await axios.post(
-      "http://localhost:5000/api/bookings",
-      newBooking
-    );
+    await axios.post(`${API}/api/bookings`, newBooking);
 
     alert("Booking Successful!");
     navigate("/confirmation", { state: newBooking });
