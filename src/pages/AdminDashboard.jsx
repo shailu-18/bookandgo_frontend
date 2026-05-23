@@ -1,94 +1,98 @@
-import {useEffect,useState} from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 
-export default function AdminDashboard(){
+export default function AdminDashboard() {
+  const [bookings, setBookings] = useState([]);
+  const [feedbacks, setFeedbacks] = useState([]);
+  const [users, setUsers] = useState([]);
 
-const[bookings,setBookings]=useState([]);
-const[feedbacks,setFeedbacks]=useState([]);
+  useEffect(() => {
+    const storedBookings =
+      JSON.parse(localStorage.getItem("bookings")) || [];
 
-useEffect(()=>{
+    const storedFeedbacks =
+      JSON.parse(localStorage.getItem("feedbacks")) || [];
 
-loadData();
+    // ✅ Unique users from bookings
+    const uniqueUsers = [
+      ...new Map(storedBookings.map((b) => [b.name, b])).values(),
+    ];
 
-},[]);
+    setBookings(storedBookings);
+    setFeedbacks(storedFeedbacks);
+    setUsers(uniqueUsers);
+  }, []);
 
-const loadData=async()=>{
+  return (
+    <div className="admin-dashboard">
+      <h2>🛠️ Admin Dashboard</h2>
 
-try{
+      {/* 🔹 Overview Cards */}
+      <div className="admin-cards">
+        <div className="card">
+          <h3>{bookings.length}</h3>
+          <p>📦 Bookings</p>
+        </div>
 
-const bookingRes=
-await axios.get(
-"https://bookandgo-backend.onrender.com/api/bookings"
-);
+        <div className="card">
+          <h3>{users.length}</h3>
+          <p>👥 Users</p>
+        </div>
 
-const feedbackRes=
-await axios.get(
-"https://bookandgo-backend.onrender.com/api/feedbacks"
-);
+        <div className="card">
+          <h3>{feedbacks.length}</h3>
+          <p>💬 Feedbacks</p>
+        </div>
+      </div>
 
-setBookings(
-bookingRes.data
-);
+      {/* 📦 BOOKINGS */}
+      <div className="admin-section">
+        <h3>📦 Recent Bookings</h3>
 
-setFeedbacks(
-feedbackRes.data
-);
+        {bookings.length === 0 ? (
+          <p>No bookings yet</p>
+        ) : (
+          bookings.map((b) => (
+            <div key={b.id} className="admin-item">
+              <p><strong>{b.name}</strong></p>
+              <p>Email: {b.email}</p>
+              <p>Destination: {b.destination}</p>
+              <p>Date: {b.date}</p>
+              <p>Duration: {b.duration}</p>
+              <p>Adults: {b.adults}</p>
+              <p>Children: {b.children}</p>
+              <p>Total: {b.totalPrice}</p>
+            </div>
+          ))
+        )}
+      </div>
 
-}
-catch(err){
+      {/* 👥 USERS */}
+      <div className="admin-section">
+        <h3>👥 Users</h3>
 
-console.log(err);
+        {users.map((u, i) => (
+          <div key={i} className="admin-item">
+            <p>👤 {u.email}</p>
+          </div>
+        ))}
+      </div>
 
-}
+      {/* 💬 FEEDBACK */}
+      <div className="admin-section">
+        <h3>💬 Feedbacks</h3>
 
-};
-
-return(
-
-<div>
-
-<h2>Admin Dashboard</h2>
-
-<h3>
-Bookings:
-{bookings.length}
-</h3>
-
-<h3>
-Feedbacks:
-{feedbacks.length}
-</h3>
-
-{bookings.map((b)=>(
-
-<div
-key={b._id}
->
-
-<p>{b.name}</p>
-
-<p>{b.destination}</p>
-
-</div>
-
-))}
-
-{feedbacks.map((f)=>(
-
-<div
-key={f._id}
->
-
-<p>{f.email}</p>
-
-<p>{f.message}</p>
-
-</div>
-
-))}
-
-</div>
-
-);
-
+        {feedbacks.length === 0 ? (
+          <p>No feedback yet</p>
+        ) : (
+          feedbacks.map((f, i) => (
+            <div key={i} className="admin-item">
+              <p><strong>{f.email}</strong></p>
+              <p>{f.message}</p>
+              <p>{"⭐".repeat(f.rating || 0)}</p>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
 }

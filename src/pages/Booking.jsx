@@ -214,12 +214,16 @@ oldBookings
       );
 
     } catch (err) {
-      console.log(err);
+  console.log("Full error:", err);
 
-      alert(
-        "Error saving booking"
-      );
-    }
+  console.log("Response:", err.response);
+
+  alert(
+    err.response?.data?.message ||
+    err.message ||
+    "Error saving booking"
+  );
+}
   };
 
   return (
