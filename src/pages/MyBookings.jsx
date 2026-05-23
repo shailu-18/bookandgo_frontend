@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect,useState } from "react";
 import axios from "axios";
 import jsPDF from "jspdf";
 
-export default function MyBookings() {
+export default function MyBookings(){
 
 const [bookings,setBookings]=
 useState([]);
@@ -13,12 +13,23 @@ fetchBookings();
 
 },[]);
 
-const fetchBookings=async()=>{
+const fetchBookings=
+async()=>{
 
 try{
 
-const res=await axios.get(
-"https://bookandgo-backend.onrender.com/api/bookings"
+const user=
+JSON.parse(
+localStorage.getItem(
+"user"
+)
+);
+
+const res=
+await axios.get(
+
+`https://bookandgo-backend.onrender.com/api/bookings?email=${user.email}`
+
 );
 
 setBookings(
@@ -28,23 +39,21 @@ res.data
 }
 catch(err){
 
-console.log(
-"Fetch Error:",
-err
-);
+console.log(err);
 
 }
 
 };
 
-// Delete booking
 const deleteBooking=
 async(id)=>{
 
 try{
 
 await axios.delete(
+
 `https://bookandgo-backend.onrender.com/api/bookings/${id}`
+
 );
 
 fetchBookings();
@@ -52,23 +61,17 @@ fetchBookings();
 }
 catch(err){
 
-console.log(
-"Delete Error:",
-err
-);
+console.log(err);
 
 }
 
 };
 
-// Download PDF
 const downloadPDF=
 (booking)=>{
 
 const doc=
 new jsPDF();
-
-doc.setFontSize(16);
 
 doc.text(
 "Travel Booking Ticket",
@@ -76,54 +79,34 @@ doc.text(
 20
 );
 
-doc.setFontSize(12);
-
 doc.text(
-`Booking ID: ${booking.bookingId || "N/A"}`,
+`Booking ID:${booking.bookingId}`,
 20,
 40
 );
 
 doc.text(
-`Name: ${booking.name}`,
+`Name:${booking.name}`,
 20,
 50
 );
 
 doc.text(
-`Email: ${booking.email}`,
+`Destination:${booking.destination}`,
 20,
 60
 );
 
 doc.text(
-`Destination: ${booking.destination}`,
+`Date:${booking.date}`,
 20,
 70
 );
 
 doc.text(
-`Date: ${booking.date}`,
+`Total:₹${booking.totalPrice}`,
 20,
 80
-);
-
-doc.text(
-`Adults: ${booking.adults}`,
-20,
-90
-);
-
-doc.text(
-`Children: ${booking.children}`,
-20,
-100
-);
-
-doc.text(
-`Total Price: ₹${booking.totalPrice}`,
-20,
-110
 );
 
 doc.save(
@@ -134,25 +117,26 @@ doc.save(
 
 return(
 
-<div className="booking-list">
+<div>
 
 <h2>
 My Bookings
 </h2>
 
-{bookings.length===0 ? (
+{bookings.length===0?
 
 <p>
 No bookings found
 </p>
 
-):(
+:
 
 bookings.map((b)=>(
 
 <div
-className="booking-item"
 key={b._id}
+className=
+"booking-item"
 >
 
 <h3>
@@ -160,45 +144,19 @@ key={b._id}
 </h3>
 
 <p>
-<strong>Booking ID:</strong>
-{b.bookingId || "N/A"}
+Booking ID:
+{b.bookingId}
 </p>
 
 <p>
-<strong>Name:</strong>
-{b.name}
-</p>
-
-<p>
-<strong>Email:</strong>
-{b.email}
-</p>
-
-<p>
-<strong>Date:</strong>
+Date:
 {b.date}
 </p>
 
 <p>
-<strong>Adults:</strong>
-{b.adults}
-</p>
-
-<p>
-<strong>Children:</strong>
-{b.children}
-</p>
-
-<p>
-<strong>Total:</strong>
+Total:
 ₹{b.totalPrice}
 </p>
-
-<div
-style={{
-marginTop:"10px"
-}}
->
 
 <button
 onClick={()=>
@@ -214,22 +172,17 @@ deleteBooking(
 b._id
 )
 }
-style={{
-marginLeft:"10px",
-background:"red",
-color:"white"
-}}
 >
-Delete
-</button>
 
-</div>
+Delete
+
+</button>
 
 </div>
 
 ))
 
-)}
+}
 
 </div>
 
