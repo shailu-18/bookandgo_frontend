@@ -185,8 +185,26 @@ export default function Booking() {
       );
 
       alert(
-        "Booking Successful!"
+        "Booking Confirmed Successfully!"
       );
+
+      const oldBookings=
+JSON.parse(
+localStorage.getItem("bookings")
+)||[];
+
+oldBookings.push(
+newBooking
+);
+
+localStorage.setItem(
+
+"bookings",
+JSON.stringify(
+oldBookings
+)
+
+);
 
       navigate(
         "/confirmation",

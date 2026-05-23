@@ -5,14 +5,14 @@ export default function Feedback() {
 
 const API="https://bookandgo-backend.onrender.com/api/feedbacks";
 
+const user=JSON.parse(
+localStorage.getItem("user")
+);
+
 const [feedbacks,setFeedbacks]=useState([]);
 const [message,setMessage]=useState("");
 const [rating,setRating]=useState(5);
 const [editId,setEditId]=useState(null);
-
-const user=JSON.parse(
-localStorage.getItem("user")
-);
 
 useEffect(()=>{
 
@@ -26,12 +26,13 @@ try{
 
 const res=await axios.get(API);
 
-setFeedbacks(res.data);
+const userFeedbacks=res.data.filter(
 
-localStorage.setItem(
-"feedbacks",
-JSON.stringify(res.data)
+(fb)=>fb.email===user?.email
+
 );
+
+setFeedbacks(userFeedbacks);
 
 }
 catch(err){
@@ -42,13 +43,14 @@ console.log(err);
 
 };
 
+
 const handleSubmit=async(e)=>{
 
 e.preventDefault();
 
 const data={
 
-email:user?.email||"Guest",
+email:user?.email,
 message,
 rating:Number(rating),
 date:new Date().toLocaleDateString()
@@ -60,18 +62,27 @@ try{
 if(editId){
 
 await axios.put(
+
 `${API}/${editId}`,
 data
+
+);
+
+alert(
+"Feedback updated successfully"
 );
 
 setEditId(null);
 
-}
-else{
+}else{
 
 await axios.post(
 API,
 data
+);
+
+alert(
+"Feedback submitted successfully"
 );
 
 }
@@ -84,7 +95,11 @@ fetchFeedbacks();
 }
 catch(err){
 
-alert("Saving failed");
+console.log(err);
+
+alert(
+"Failed to save feedback"
+);
 
 }
 
@@ -92,11 +107,17 @@ alert("Saving failed");
 
 const handleEdit=(fb)=>{
 
-setMessage(fb.message);
+setMessage(
+fb.message
+);
 
-setRating(fb.rating);
+setRating(
+fb.rating
+);
 
-setEditId(fb._id);
+setEditId(
+fb._id
+);
 
 };
 
@@ -108,12 +129,20 @@ await axios.delete(
 `${API}/${id}`
 );
 
+alert(
+"Feedback deleted successfully"
+);
+
 fetchFeedbacks();
 
 }
-catch{
+catch(err){
 
-alert("Delete error");
+console.log(err);
+
+alert(
+"Failed to delete"
+);
 
 }
 
@@ -123,7 +152,9 @@ return(
 
 <div className="feedback-container">
 
-<h2>Feedback & Reviews</h2>
+<h2>
+Feedback & Reviews
+</h2>
 
 <form onSubmit={handleSubmit}>
 
@@ -151,11 +182,11 @@ e.target.value
 }
 >
 
-<option value="5">⭐⭐⭐⭐⭐</option>
-<option value="4">⭐⭐⭐⭐</option>
-<option value="3">⭐⭐⭐</option>
-<option value="2">⭐⭐</option>
-<option value="1">⭐</option>
+<option value={5}>⭐⭐⭐⭐⭐</option>
+<option value={4}>⭐⭐⭐⭐</option>
+<option value={3}>⭐⭐⭐</option>
+<option value={2}>⭐⭐</option>
+<option value={1}>⭐</option>
 
 </select>
 
@@ -169,14 +200,14 @@ e.target.value
 
 </form>
 
+<h3>Your Feedback</h3>
+
 {feedbacks.map((fb)=>(
 
 <div
 key={fb._id}
 className="feedback-item"
 >
-
-<p>{fb.email}</p>
 
 <p>{fb.message}</p>
 
@@ -186,12 +217,16 @@ fb.rating
 )}
 </p>
 
+<p>{fb.date}</p>
+
 <button
 onClick={()=>
 handleEdit(fb)
 }
 >
+
 Edit
+
 </button>
 
 <button
