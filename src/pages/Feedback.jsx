@@ -2,156 +2,216 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Feedback() {
-  const [messageSent, setMessageSent] = useState(false);
-  const [feedbacks, setFeedbacks] = useState([]);
-  const [rating, setRating] = useState(5);
 
-  const user = JSON.parse(localStorage.getItem("user"));
+const API="https://bookandgo-backend.onrender.com/api/feedbacks";
 
-  // ✅ Load feedbacks from backend
-  useEffect(() => {
-    fetchFeedbacks();
-  }, []);
+const [feedbacks,setFeedbacks]=useState([]);
+const [message,setMessage]=useState("");
+const [rating,setRating]=useState(5);
+const [editId,setEditId]=useState(null);
 
-  const fetchFeedbacks = async () => {
-    try {
-      const res = await axios.get(
-        "http://localhost:5000/api/feedbacks"
-      );
-      setFeedbacks(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+const user=JSON.parse(
+localStorage.getItem("user")
+);
 
-  // ✅ Submit feedback (POST)
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+useEffect(()=>{
 
-    const newFeedback = {
-      email: user?.email,
-      message: e.target.message.value,
-      rating: Number(rating),
-      date: new Date().toLocaleDateString(),
-    };
+fetchFeedbacks();
 
-    try {
-      await axios.post(
-        "http://localhost:5000/api/feedbacks",
-        newFeedback
-      );
+},[]);
 
-      setMessageSent(true);
-      setTimeout(() => setMessageSent(false), 3000);
+const fetchFeedbacks=async()=>{
 
-      e.target.reset();
-      setRating(5);
+try{
 
-      fetchFeedbacks(); // reload
+const res=await axios.get(API);
 
-    } catch (err) {
-      console.error(err);
-      alert("Error saving feedback");
-    }
-  };
+setFeedbacks(res.data);
 
-  // ✅ Delete feedback
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(
-        `http://localhost:5000/api/feedbacks/${id}`
-      );
+localStorage.setItem(
+"feedbacks",
+JSON.stringify(res.data)
+);
 
-      fetchFeedbacks();
+}
+catch(err){
 
-    } catch (err) {
-      console.error(err);
-    }
-  };
+console.log(err);
 
-  // ✅ Average Rating
-  const averageRating =
-    feedbacks.length > 0
-      ? (
-          feedbacks.reduce((sum, f) => sum + (f.rating || 0), 0) /
-          feedbacks.length
-        ).toFixed(1)
-      : 0;
+}
 
-  return (
-    <div className="feedback-container">
-      <h2>Feedback & Reviews 💬⭐</h2>
+};
 
-      <h3>Average Rating: ⭐ {averageRating} / 5</h3>
+const handleSubmit=async(e)=>{
 
-      {/* FORM */}
-      <form onSubmit={handleSubmit}>
-        {/* ✅ Show logged user */}
-        <input
-          name="email"
-          value={user?.email || ""}
-          readOnly
-        />
+e.preventDefault();
 
-        <textarea name="message" placeholder="Message" required />
+const data={
 
-        {/* ⭐ Rating */}
-        <select
-          value={rating}
-          onChange={(e) => setRating(e.target.value)}
-        >
-          <option value="5">⭐⭐⭐⭐⭐</option>
-          <option value="4">⭐⭐⭐⭐</option>
-          <option value="3">⭐⭐⭐</option>
-          <option value="2">⭐⭐</option>
-          <option value="1">⭐</option>
-        </select>
+email:user?.email||"Guest",
+message,
+rating:Number(rating),
+date:new Date().toLocaleDateString()
 
-        <button type="submit">
-          {editIndex !== null ? "Update Feedback" : "Submit"}
-        </button>
-      </form>
+};
 
-      {messageSent && (
-        <p className="success-msg">✅ Feedback submitted successfully!</p>
-      )}
+try{
 
-      {/* LIST */}
-      <div className="feedback-list">
-        <h3>User Reviews</h3>
+if(editId){
 
-        {feedbacks.length === 0 ? (
-          <p>No feedback yet</p>
-        ) : (
-          feedbacks.map((fb, i) => (
-            <div key={fb.id} className="feedback-item">
-              <p><b>{fb.email}</b></p>
-              <p>{fb.message}</p>
+await axios.put(
+`${API}/${editId}`,
+data
+);
 
-              {/* ⭐ stars */}
-              <p>{"⭐".repeat(fb.rating || 0)}</p>
+setEditId(null);
 
-              {/* 📅 date */}
-              <small>{fb.date}</small>
+}
+else{
 
-              <br />
+await axios.post(
+API,
+data
+);
 
-              <button onClick={() => handleEdit(i)}>Edit</button>
+}
 
-              <button
-                onClick={() => handleDelete(i)}
-                style={{
-                  marginLeft: "10px",
-                  background: "red",
-                  color: "white"
-                }}
-              >
-                Delete
-              </button>
-            </div>
-          ))
-        )}
-      </div>
-    </div>
-  );
+setMessage("");
+setRating(5);
+
+fetchFeedbacks();
+
+}
+catch(err){
+
+alert("Saving failed");
+
+}
+
+};
+
+const handleEdit=(fb)=>{
+
+setMessage(fb.message);
+
+setRating(fb.rating);
+
+setEditId(fb._id);
+
+};
+
+const handleDelete=async(id)=>{
+
+try{
+
+await axios.delete(
+`${API}/${id}`
+);
+
+fetchFeedbacks();
+
+}
+catch{
+
+alert("Delete error");
+
+}
+
+};
+
+return(
+
+<div className="feedback-container">
+
+<h2>Feedback & Reviews</h2>
+
+<form onSubmit={handleSubmit}>
+
+<input
+value={user?.email||""}
+readOnly
+/>
+
+<textarea
+value={message}
+onChange={(e)=>
+setMessage(
+e.target.value
+)
+}
+required
+/>
+
+<select
+value={rating}
+onChange={(e)=>
+setRating(
+e.target.value
+)
+}
+>
+
+<option value="5">⭐⭐⭐⭐⭐</option>
+<option value="4">⭐⭐⭐⭐</option>
+<option value="3">⭐⭐⭐</option>
+<option value="2">⭐⭐</option>
+<option value="1">⭐</option>
+
+</select>
+
+<button type="submit">
+
+{editId?
+"Save Update":
+"Submit"}
+
+</button>
+
+</form>
+
+{feedbacks.map((fb)=>(
+
+<div
+key={fb._id}
+className="feedback-item"
+>
+
+<p>{fb.email}</p>
+
+<p>{fb.message}</p>
+
+<p>
+{"⭐".repeat(
+fb.rating
+)}
+</p>
+
+<button
+onClick={()=>
+handleEdit(fb)
+}
+>
+Edit
+</button>
+
+<button
+onClick={()=>
+handleDelete(
+fb._id
+)
+}
+>
+
+Delete
+
+</button>
+
+</div>
+
+))}
+
+</div>
+
+);
+
 }
